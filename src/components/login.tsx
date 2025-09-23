@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { LoginResponse } from "@/types";
-import { NanoWS } from "@/lib/nano";
-import { checkLogin } from "@/lib/api";
+import { LoginResponse } from "../types";
+import { NanoWS } from "../lib/nano";
+import { checkLogin } from "../lib/api";
 
 interface SignInModalProps {
   loginResponse: LoginResponse

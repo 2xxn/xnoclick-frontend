@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect } from "react";
-import { checkLogin, getStats, login } from "@/lib/api";
-import { LoginResponse, StatsResponse } from "@/types";
-import Login from "@/components/login";
-import { NanoWS } from "@/lib/nano";
+import { checkLogin, getStats, login } from "../lib/api";
+import { LoginResponse, StatsResponse } from "../types";
+import Login from "./login";
+import { NanoWS } from "../lib/nano";
 import { v4 as uuidv4 } from 'uuid';
 
 export const LandingPage = () => {

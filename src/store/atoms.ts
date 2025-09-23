@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { UserData, ShortLink, Settings } from '@/types';
+import { UserData, ShortLink, Settings } from '../types';
 
 export const userDataAtom = atom<UserData | null>(null);
 

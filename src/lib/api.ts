@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeSettingsRequest, CreateLinkRequest, LoginResponse } from "@/types";
+import { ChangeSettingsRequest, CreateLinkRequest, LoginResponse } from "../types";
 
 const API_URL = () => typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:3001' : '';
 

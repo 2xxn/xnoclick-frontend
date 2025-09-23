@@ -1,11 +1,11 @@
 "use client"
 import { atom, useAtom } from 'jotai';
 import { useEffect } from 'react';
-import { getLinks, me, settings } from '@/lib/api';
-import { ChangeSettingsRequest, ShortLink } from '@/types';
+import { getLinks, me, settings } from '../lib/api';
+import { ChangeSettingsRequest, ShortLink } from '../types';
 
 // Atom to store user data, statistics
-export const userDataAtom = atom<unknown | null>(null);
+export const userDataAtom = atom<any | null>(null);
 
 // Atom to store user links
 export const linksAtom = atom<ShortLink[] | null>(null);
