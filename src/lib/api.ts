@@ -68,6 +68,10 @@ export function me() {
   return invoke('me', 'GET') as Promise<unknown>;
 }
 
+export function deleteAccount() {
+  return invoke('me', 'DELETE') as Promise<unknown>;
+}
+
 export function createLink(createLinkRequest: CreateLinkRequest) {
   return invoke('create', 'POST', createLinkRequest) as Promise<unknown>;
 }

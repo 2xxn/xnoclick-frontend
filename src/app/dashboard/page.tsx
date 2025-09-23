@@ -3,7 +3,7 @@
 import 'chart.js/auto';
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-chartjs-2';
-import { createLink, logout, removeLink, saveSettings } from '../../lib/api';
+import { createLink, deleteAccount, logout, removeLink, saveSettings } from '../../lib/api';
 import { ShortLink } from '../../types';
 import { DataProvider, linksAtom, settingsAtom, userDataAtom } from '../../components/DataProvider';
 import { useAtom } from 'jotai';
@@ -41,9 +41,9 @@ export default function DashboardPage() {
   }, []);
 
   const saveSettingsClick = () => {
-    setSettings({ autoClaim, autoClaimThreshold });
     console.log('Saving settings:', { autoClaim, autoClaimThreshold });
     saveSettings({ autoClaim, autoClaimThreshold }).then((response) => {
+      setSettings({ autoClaim, autoClaimThreshold });
       console.log('Settings saved:', response);
     }).catch((error) => {
       console.error('Error saving settings:', error);
@@ -126,14 +126,28 @@ export default function DashboardPage() {
 
   const createLinkClick = () => {
     console.log('Creating link:', { destination, earnings, customUrl });
-    setDestination('');
-    setCustomUrl('');
-    createLink({ destination, earn: earnings, shortLink: customUrl }).then((response) => {
+    createLink({ destination, earn: earnings, shortLink: customUrl }).then((response: any) => {
       console.log('Link created:', response);
+      setDestination('');
+      setCustomUrl('');
+      setLinks([response.data as ShortLink, ...(links as ShortLink[])]);
     }).catch((error) => {
       console.error('Error creating link:', error);
     });
   };
+
+  async function deleteAccountClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> {
+    event.preventDefault();
+    try {
+      await deleteAccount();
+      await logout();
+
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Account deletion failed:', error);
+      alert('Failed to delete account. Please try again.');
+    }
+  }
 
   return (
     <DataProvider>
@@ -213,7 +227,7 @@ export default function DashboardPage() {
                       />
                     </div>
                     <details className="collapse collapse-arrow bg-base-200 rounded-lg">
-                      <summary className="collapse-title text-sm font-medium">Advanced Options</summary>
+                      <summary className="collapse-title text-sm font-medium">Extra Options</summary>
                       <div className="collapse-content space-y-4 pt-4">
                         <label className="flex items-center gap-3 cursor-pointer">
                           <input 
@@ -300,18 +314,18 @@ export default function DashboardPage() {
                               <div className="flex gap-6 border-t border-base-300 pt-3">
                                 <div className="space-y-1">
                                   <span className="text-xs font-medium text-neutral-500">Impressions</span>
-                                  <p className="font-medium text-lg">{link.impressions}</p>
+                                  <p className="font-medium text-lg">{link.impressions || 0}</p>
                                 </div>
                                 <div className="space-y-1">
                                   <span className="text-xs font-medium text-neutral-500">Total Earnings</span>
                                   <p className="font-medium text-lg">
-                                  Ӿ{link.earned.toFixed(2)}
+                                  Ӿ{link.earned > 0 ? link.earned : "0.00"}
                                   </p>
                                 </div>
                                 <div className="space-y-1">
                                   <span className="text-xs font-medium text-neutral-500">Claimable</span>
                                   <p className="font-medium text-lg text-success">
-                                  Ӿ{link.earned.toFixed(2)}
+                                  Ӿ{link.claimable > 0 ? link.claimable : "0.00"}
                                   </p>
                                 </div>
                               </div>
@@ -358,7 +372,7 @@ export default function DashboardPage() {
                         <input
                           type="checkbox"
                           className="toggle toggle-primary"
-                          checked={autoClaim}
+                          checked={settings.autoClaim ?? false}
                           onChange={(e) => setAutoClaim(e.target.checked)}
                         />
                       </div>
@@ -373,6 +387,7 @@ export default function DashboardPage() {
                           placeholder="0.01"
                           min="0.01"
                           step="0.01"
+                          value={settings.autoClaimThreshold ?? null}
                           onChange={(e) => setAutoClaimThreshold(parseFloat(e.target.value))}
                         />
                       </div>
@@ -419,7 +434,9 @@ export default function DashboardPage() {
                   <form method="dialog">
                     <button className="btn btn-ghost">Cancel</button>
                   </form>
-                  <button className="btn btn-error gap-2">
+                  <button
+                    onClick={deleteAccountClick}
+                    className="btn btn-error gap-2">
                     Delete Account
                   </button>
                 </div>
