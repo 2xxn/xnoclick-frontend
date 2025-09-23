@@ -101,7 +101,7 @@ export const LandingPage = () => {
            <nav className="navbar bg-base-100 shadow-lg fixed top-0 z-50 2xl:px-90">
         <div className="flex flex-1">
           <a href="#top" className="btn btn-ghost text-xl">
-            <span className="text-primary">Tiny</span>XNO
+            <span className="text-primary">XNO</span>Click
           </a>
         </div>
         <div className="flex flex-none hidden md:flex">
@@ -148,7 +148,7 @@ export const LandingPage = () => {
           <div className="md:w-1/2 relative">
             <div className="mockup-browser border border-base-300 bg-base-100 shadow-2xl">
               <div className="mockup-browser-toolbar">
-                <div className="input border border-base-300">https://tinyxno.link/earn</div>
+                <div className="input border border-base-300">https://xno.click/earn</div>
               </div>
               <div className="px-4 py-16 bg-base-200 text-center">
                 <div className="animate-pulse text-sm text-base-content/50">
@@ -166,7 +166,7 @@ export const LandingPage = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Crypto-Powered URL Shortener</h3>
             <p className="text-base-content/80 leading-relaxed">
-              TinyXNO revolutionizes link sharing by integrating Nano cryptocurrency. 
+              XNOClick revolutionizes link sharing by integrating Nano cryptocurrency. 
               Create short links that generate passive income through community engagement 
               while promoting decentralized digital currency adoption.
             </p>
@@ -206,16 +206,16 @@ export const LandingPage = () => {
 
       <SectionWrapper id="stats" title="Platform Statistics">
         <div className="grid md:grid-cols-3 gap-6">
-          <StatCard title="Total Distributed" value={`${stats.distributed} XNO`} trend="+21% from last month" />
-          <StatCard title="Monthly Impressions" value={`${stats.impressions}`} trend="+34% from last month" />
-          <StatCard title="Active Users" value={`${stats.activeUsers}`} trend="89% retention rate" />
+          <StatCard title="Total Distributed" value={`${stats.distributed} XNO`} />
+          <StatCard title="Monthly Impressions" value={`${stats.impressions}`} trend={`+${calculatePercentage(stats.impressions, stats.impressionsMonthBefore)}% from last month`} />
+          <StatCard title="Total Users" value={`${stats.activeUsers}`} />
         </div>
       </SectionWrapper>
 
       <SectionWrapper id="donate" title="Support the Network" bg="base-100">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <p className="text-xl text-base-content/80">
-            Help sustain and grow the TinyXNO ecosystem. Your donations directly fuel user earnings 
+            Help sustain and grow the XNOClick ecosystem. Your donations directly fuel user earnings
             and platform development.
           </p>
           <div className="bg-base-200 p-6 rounded-2xl border border-base-300">
@@ -223,7 +223,7 @@ export const LandingPage = () => {
             <div className="radial-progress text-primary" style={{ '--value': calculatePercentage(stats?.funds || 0, stats?.fundingGoal || 20) } as React.CSSProperties}>
               {calculatePercentage(stats?.funds || 0, stats?.fundingGoal || 20)}%
             </div>
-            <div className="mt-4 text-base-content/70">{stats?.funds}/{stats?.fundingGoal} XNO</div>
+            <div className="mt-4 text-base-content/70">{(stats?.funds || 0).toFixed(3)}/{(stats?.fundingGoal || 20).toFixed(3)} XNO</div>
           </div>
           <button className="btn btn-primary px-12">Contribute Now</button>
         </div>
@@ -234,7 +234,7 @@ export const LandingPage = () => {
         <div className="container mx-auto px-4 2xl:px-20">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h4 className="footer-title">TinyXNO</h4>
+              <h4 className="footer-title">XNOClick</h4>
               <p className="text-neutral-content/80">
                 URL shortening powered by Nano cryptocurrency
               </p>
@@ -253,7 +253,7 @@ export const LandingPage = () => {
             </div>
           </div>
           <div className="border-t border-neutral-content/20 mt-8 pt-8 text-center md:text-left">
-            <p>© 2025 TinyXNO. All rights reserved.</p>
+            <p>© 2025 XNOClick. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -275,14 +275,14 @@ const SectionWrapper = ({ id, title, children, bg = 'base-200' }: {
   </section>
 );
 
-const StatCard = ({ title, value, trend }: { 
+const StatCard = ({ title, value, trend = "" }: { 
   title: string;
   value: string;
-  trend: string;
+  trend?: string;
 }) => (
   <div className="card bg-base-100 p-6 border border-base-300 hover:shadow-lg transition-all">
     <h3 className="text-lg text-base-content/70 mb-2">{title}</h3>
     <div className="text-3xl font-bold mb-2">{value}</div>
-    <div className="text-sm text-primary">{trend}</div>
+    <div className="text-sm text-primary">{trend || ''}</div>
   </div>
 );

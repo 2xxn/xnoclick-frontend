@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'TinyXNO - URL Shortener',
+  title: 'XNOClick - URL Shortener',
   description: 'A URL shortener service with earnings tracking capabilities',
 }
 

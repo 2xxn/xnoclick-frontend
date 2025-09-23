@@ -164,7 +164,7 @@ export default function DashboardPage() {
             </label>
           </div>
           <div className="flex-1 px-2">
-            <h2 className="text-xl font-bold"><span className="text-primary">Tiny</span>XNO</h2>
+            <h2 className="text-xl font-bold"><span className="text-primary">XNO</span>Click</h2>
           </div>
         </div>
 
@@ -239,7 +239,7 @@ export default function DashboardPage() {
                         <div>
                           <label className="block text-sm font-medium mb-2">Custom URL</label>
                           <div className="flex gap-2">
-                            <span className="px-4 bg-base-300 flex items-center rounded-l-lg">tinyx.no/</span>
+                            <span className="px-4 bg-base-300 flex items-center rounded-l-lg">xno.click/</span>
                             <input 
                               type="text" 
                               placeholder="custom" 
@@ -291,10 +291,10 @@ export default function DashboardPage() {
                             <div className="flex-1 min-w-0 space-y-3">
                               <div className="flex flex-col sm:flex-row sm:items-baseline gap-3">
                                 <button
-                                  onClick={() => navigator.clipboard.writeText(`https://tinyx.no/${link.shortUrl}`)}
+                                  onClick={() => navigator.clipboard.writeText(`https://xno.click/${link.shortUrl}`)}
                                   className="text-left font-semibold text-lg truncate hover:text-primary transition-colors"
                                 >
-                                  <span className="text-base-content/80">tinyx.no/</span>
+                                  <span className="text-base-content/80">xno.click/</span>
                                   <span className="text-primary">{link.shortUrl}</span>
                                 </button>
                                 {/* <div className="flex gap-2 items-center">
@@ -449,7 +449,7 @@ export default function DashboardPage() {
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <div className="w-64 bg-base-100 border-r border-base-300 flex flex-col h-full">
           <div className="p-4 border-b border-base-300 hidden lg:block">
-            <h2 className="text-xl font-bold"><span className="text-primary">Tiny</span>XNO</h2>
+            <h2 className="text-xl font-bold"><span className="text-primary">XNO</span>Click</h2>
           </div>
           <nav className="flex-1 p-2 space-y-1 mt-4">
             <div className="lg:hidden"><br /><br /></div>
