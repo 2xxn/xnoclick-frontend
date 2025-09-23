@@ -2,10 +2,10 @@
 import React, { useEffect } from "react";
 import { checkLogin, getStats, login } from "../lib/api";
 import { LoginResponse, StatsResponse } from "../types";
-import Login from "./login";
 import { NanoWS } from "../lib/nano";
-import { v4 as uuidv4 } from 'uuid';
 import { calculatePercentage, resetRememberMe } from "../lib/utils";
+import { GITHUB_URL, DISCORD_URL } from "../consts";
+import Login from "./login";
 
 export const LandingPage = () => {
   const [stats, setStats] = React.useState<StatsResponse>({
@@ -31,7 +31,7 @@ export const LandingPage = () => {
   }
 
   function waitForTransaction(address: string, loginKey: string) {
-      const ws = new NanoWS('wss://ws.nano.to');
+      const ws = new NanoWS('wss://www.blocklattice.io/ws');
 
       ws.on('reconnect', () => {
           // Delete current ws and create a new one
@@ -247,9 +247,8 @@ export const LandingPage = () => {
             </div>
             <div className="flex flex-col gap-0 lg:gap-4">
               <h4 className="footer-title">Community</h4>
-              <a className="link link-hover">GitHub</a>
-              <a className="link link-hover">Twitter</a>
-              <a className="link link-hover">Discord</a>
+              <a target="_blank" href={GITHUB_URL} className="link link-hover">GitHub</a>
+              <a target="_blank" href={DISCORD_URL} className="link link-hover">Discord</a>
             </div>
           </div>
           <div className="border-t border-neutral-content/20 mt-8 pt-8 text-center md:text-left">
