@@ -5,6 +5,7 @@ import { LoginResponse, StatsResponse } from "../types";
 import Login from "./login";
 import { NanoWS } from "../lib/nano";
 import { v4 as uuidv4 } from 'uuid';
+import { calculatePercentage, resetRememberMe } from "../lib/utils";
 
 export const LandingPage = () => {
   const [stats, setStats] = React.useState<StatsResponse>({
@@ -20,17 +21,11 @@ export const LandingPage = () => {
   const [loginModalOpen, setLoginModalOpen] = React.useState(false);
   const [loginData, setLoginData] = React.useState<LoginResponse>();
 
-  function calculatePercentage(part: number, total: number) {
-    if (total === 0) return 0;
-    return Math.round((part / total) * 100);
-  }
-
   function checkLoginStatus(loginKey: string) {
     checkLogin(loginKey).then((response) => {
         if(response.success) {
-          window.sessionStorage.setItem('rememberMe', uuidv4()); // Regenerate rememberMe token on each login
-          console.log("Login successful:", response);
-          location.href = "/dashboard";
+          console.info("Login successful:", response);
+          resetRememberMe('/dashboard');
         }
     });
   }
@@ -55,14 +50,13 @@ export const LandingPage = () => {
 
   function showLoginModal() {
     if(!window.sessionStorage.getItem('rememberMe')) {
-      window.sessionStorage.setItem('rememberMe', uuidv4());
+      resetRememberMe();
     }
 
     login().then((response) => {
       console.log("Login response:", response);
       if((response as { status?: number })?.status == 204) {
-        location.href = "/dashboard"
-        return;
+        resetRememberMe('/dashboard');
       }
 
       setLoginData(response);
@@ -70,9 +64,8 @@ export const LandingPage = () => {
 
       checkLogin(response.loginKey).then((response) => {
           if(response.success) {
-            console.log("Login successful:", response);
-            window.sessionStorage.setItem('rememberMe', uuidv4()); // Regenerate rememberMe token on each login
-            location.href = "/dashboard";
+            console.info("Login successful:", response);
+            resetRememberMe('/dashboard');
           }
       }).catch(() => {
         waitForTransaction(response.address, response.loginKey);

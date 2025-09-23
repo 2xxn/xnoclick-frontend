@@ -7,6 +7,7 @@ import { createLink, deleteAccount, logout, removeLink, saveSettings } from '../
 import { ShortLink } from '../../types';
 import { DataProvider, linksAtom, settingsAtom, userDataAtom } from '../../components/DataProvider';
 import { useAtom } from 'jotai';
+import { resetRememberMe } from '@/src/lib/utils';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState(0);
@@ -69,12 +70,11 @@ export default function DashboardPage() {
     logout()
       .then(() => {
         console.log('Logged out successfully');
-        window.location.href = '/'; // Redirect to login page
+        resetRememberMe('/');
       })
       .catch((error) => {
         console.error('Logout failed:', error);
-      }
-    );
+      });
   };
 
   // Chart configuration
@@ -140,9 +140,7 @@ export default function DashboardPage() {
     event.preventDefault();
     try {
       await deleteAccount();
-      await logout();
-
-      window.location.href = '/';
+      resetRememberMe('/');
     } catch (error) {
       console.error('Account deletion failed:', error);
       alert('Failed to delete account. Please try again.');
@@ -372,7 +370,7 @@ export default function DashboardPage() {
                         <input
                           type="checkbox"
                           className="toggle toggle-primary"
-                          checked={settings.autoClaim ?? false}
+                          defaultChecked={settings.autoClaim ?? false}
                           onChange={(e) => setAutoClaim(e.target.checked)}
                         />
                       </div>
@@ -387,7 +385,7 @@ export default function DashboardPage() {
                           placeholder="0.01"
                           min="0.01"
                           step="0.01"
-                          value={settings.autoClaimThreshold ?? null}
+                          defaultValue={settings.autoClaimThreshold ?? ''}
                           onChange={(e) => setAutoClaimThreshold(parseFloat(e.target.value))}
                         />
                       </div>
