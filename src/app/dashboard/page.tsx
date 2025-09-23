@@ -354,6 +354,37 @@ export default function DashboardPage() {
             </div>
           )}
 
+          {activeTab === 2 && (
+            <div className="flex-1 p-4 sm:p-8 h-full overflow-auto">
+              <div className="max-w-3xl mx-auto">
+                <div className="bg-base-100 rounded-2xl shadow-lg border border-base-300 p-6">
+                  <h2 className="text-xl font-bold mb-4">Link Earnings</h2>
+                  <p className="text-base-content/70 mb-6">
+                    View your earnings and claimable amounts for each link.
+                  </p>
+                  {/* Stat cards */}
+                  <div className="grid grid-cols-1 grid-cols-2 gap-6 mb-8">
+                    {[
+                      { title: 'Total Earnings', value: userData?.totalEarned || 0 },
+                      { title: 'Claimable', value: userData?.claimable || 0 },
+                    ].map((stat) => (
+                      <div key={stat.title} className="bg-base-200 p-4 rounded-lg shadow-sm">
+                        <h3 className="font-medium">{stat.title}</h3>
+                        <p className="text-lg font-bold">Ӿ{stat.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Cashout button */}
+                  <div className="mt-6">
+                    <button className="btn btn-primary w-full">
+                      Cash Out Earnings
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeTab === 3 && settings && (
             <div className="flex-1 p-4 sm:p-8 h-full overflow-auto">
               <div className="max-w-3xl mx-auto">
