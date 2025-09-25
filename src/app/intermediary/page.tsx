@@ -78,6 +78,14 @@ export default function IntermediaryPage() {
 
         verifyImpression();
 
+        setTimeout(() => {
+            // Fallback to direct redirection after 8 seconds
+            const shortlinkData = window.__SHORTLINK_DATA__;
+            if (shortlinkData) {
+                window.location.href = shortlinkData.destination;
+            }
+        }, 8000);
+
         return () => clearInterval(interval);
     }, []);
 
