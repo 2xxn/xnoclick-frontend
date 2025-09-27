@@ -3,7 +3,7 @@
 import 'chart.js/auto';
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-chartjs-2';
-import { createLink, deleteAccount, logout, removeLink, saveSettings } from '../../lib/api';
+import { cashout, createLink, deleteAccount, logout, removeLink, saveSettings } from '../../lib/api';
 import { ShortLink } from '../../types';
 import { DataProvider, linksAtom, settingsAtom, userDataAtom } from '../../components/DataProvider';
 import { useAtom } from 'jotai';
@@ -63,6 +63,15 @@ export default function DashboardPage() {
 
   const handleEditLink = (id: string) => {
     console.log('Editing link with ID:', id);
+  };
+
+  const cashoutClick = () => {
+    console.log('Cashout clicked');
+    cashout().then((response) => {
+      console.log('Cashout successful:', response);
+    }).catch((error) => {
+      console.error('Error during cashout:', error);
+    });
   };
 
   const logoutClick = () => {
@@ -376,7 +385,7 @@ export default function DashboardPage() {
                   </div>
                   {/* Cashout button */}
                   <div className="mt-6">
-                    <button className="btn btn-primary w-full">
+                    <button onClick={cashoutClick} className="btn btn-primary w-full">
                       Cash Out Earnings
                     </button>
                   </div>

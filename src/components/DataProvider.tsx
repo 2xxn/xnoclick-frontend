@@ -2,10 +2,10 @@
 import { atom, useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { getLinks, me, settings } from '../lib/api';
-import { ChangeSettingsRequest, ShortLink } from '../types';
+import { ChangeSettingsRequest, MeResponse, ShortLink } from '../types';
 
 // Atom to store user data, statistics
-export const userDataAtom = atom<any | null>(null);
+export const userDataAtom = atom<MeResponse | null>(null);
 
 // Atom to store user links
 export const linksAtom = atom<ShortLink[] | null>(null);
@@ -29,7 +29,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
             ]).then(([meData, linksData, settingsData]) => {
                 // Handle user data
                 if (meData.status === 'fulfilled') {
-                    setUserData(meData.value);
+                    setUserData(meData.value as MeResponse);
                 } // No Toast since that probably means the user is first time user
 
                 // Handle links data

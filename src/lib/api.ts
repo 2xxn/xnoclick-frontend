@@ -87,3 +87,7 @@ export function saveSettings(settings: ChangeSettingsRequest) {
 export function settings() {
   return invoke('settings', 'GET') as Promise<{ data: unknown }>;
 }
+
+export function cashout() {
+  return invoke('cashout', 'POST') as Promise<unknown>;
+}
