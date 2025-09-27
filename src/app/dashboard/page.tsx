@@ -306,7 +306,7 @@ export default function DashboardPage() {
                               </div>
                               
                               <p className="text-sm text-neutral-400 truncate">
-                                → {link.destination}
+                                → <a className="text-primary" href={link.destination} target="_blank" rel="noopener noreferrer">{link.destination}</a>
                               </p>
 
                               <div className="flex gap-6 border-t border-base-300 pt-3">
