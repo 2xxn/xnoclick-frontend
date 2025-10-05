@@ -31,7 +31,7 @@ export const LandingPage = () => {
   }
 
   function waitForTransaction(address: string, loginKey: string) {
-      const ws = new NanoWS('wss://www.blocklattice.io/ws');
+      const ws = new NanoWS('wss://rainstorm.city/websocket');
 
       ws.on('reconnect', () => {
           // Delete current ws and create a new one

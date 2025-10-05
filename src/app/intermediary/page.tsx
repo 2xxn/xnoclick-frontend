@@ -19,6 +19,7 @@ export default function IntermediaryPage() {
 
     function verifyImpression() {
         if (!window || typeof window == "undefined") {
+            console.error("Window object is not available.");
             return;
         }
 
@@ -30,6 +31,7 @@ export default function IntermediaryPage() {
         
         if (window.__RECAPTCHA_PUBLIC__ && !captchaEnabled) {
             setCaptchaEnabled(true);
+            console.log("Captcha enabled");
             return;
         }
 
@@ -59,15 +61,16 @@ export default function IntermediaryPage() {
                     console.error("Failed to verify impression:", res.statusText);
                 }
             });
+        }
 
-            if (captchaRef.current) {
-                captchaRef.current.executeAsync().then((token: string | null) => {
-                    proceed(token || undefined);
-                }).catch((err: any) => {
-                    console.error("Captcha execution failed:", err);
-                    proceed();
-                });
-            }
+        if (captchaRef.current) {
+            captchaRef.current.executeAsync().then((token: string | null) => {
+                console.log("Captcha token after proceed:", token);
+                proceed(token || undefined);
+            }).catch((err: any) => {
+                console.error("Captcha execution failed:", err);
+                proceed();
+            });
         }
     }
 
