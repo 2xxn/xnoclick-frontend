@@ -117,11 +117,11 @@ export default function IntermediaryPage() {
                     </div>
                 </div>
             </div>
-            <Captcha
+            {captchaEnabled && <Captcha
                 ref={captchaRef}
                 size="invisible"
                 sitekey={window.__RECAPTCHA_PUBLIC__!} // Non-null assertion because server ensures it's defined
-            />
+            />}
             <script>
                 /* PLEASE NEXT.JS DON'T REMOVE THIS COMMENT FROM HERE */
             </script>
