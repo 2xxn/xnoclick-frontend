@@ -29,12 +29,8 @@ export default function IntermediaryPage() {
             return;
         }
         
-        if (window.__RECAPTCHA_PUBLIC__ && !captchaEnabled) {
-            setCaptchaEnabled(true);
-            console.log("Captcha enabled");
-        }
-
         const proceed = (captchaToken?: string) => {
+            console.log("Proceeding with verification, captcha token:", captchaToken ? "present" : "none");
             const r = fetch(`/${shortlinkData.shortUrl}/verify`, {
                 method: "POST",
                 redirect: "manual",
@@ -62,14 +58,29 @@ export default function IntermediaryPage() {
             });
         }
 
-        if (captchaRef.current) {
+        // If captcha is required but not yet enabled, enable it and return
+        if (window.__RECAPTCHA_PUBLIC__ && !captchaEnabled) {
+            console.log("Captcha required, enabling captcha component");
+            setCaptchaEnabled(true);
+            return; // Exit here, captcha execution will happen in useEffect
+        }
+
+        // If captcha is enabled and ready, execute it
+        if (captchaEnabled && captchaRef.current) {
+            console.log("Executing captcha");
             captchaRef.current.executeAsync().then((token: string | null) => {
-                console.log("Captcha token after proceed:", token);
+                console.log("Captcha token received:", token ? "present" : "null");
                 proceed(token || undefined);
             }).catch((err: any) => {
                 console.error("Captcha execution failed:", err);
                 proceed();
             });
+        } else if (!window.__RECAPTCHA_PUBLIC__) {
+            // No captcha required, proceed directly
+            console.log("No captcha required, proceeding directly");
+            proceed();
+        } else {
+            console.log("Captcha enabled but ref not ready yet");
         }
     }
 
@@ -90,6 +101,14 @@ export default function IntermediaryPage() {
 
         return () => clearInterval(interval);
     }, []);
+
+    // Execute captcha once it's enabled and component is rendered
+    useEffect(() => {
+        if (captchaEnabled && captchaRef.current) {
+            console.log("Captcha component is now ready, executing verification");
+            verifyImpression();
+        }
+    }, [captchaEnabled, captchaRef.current]);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 flex items-center justify-center p-4">
