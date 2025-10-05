@@ -32,7 +32,6 @@ export default function IntermediaryPage() {
         if (window.__RECAPTCHA_PUBLIC__ && !captchaEnabled) {
             setCaptchaEnabled(true);
             console.log("Captcha enabled");
-            return;
         }
 
         const proceed = (captchaToken?: string) => {
@@ -118,11 +117,11 @@ export default function IntermediaryPage() {
                     </div>
                 </div>
             </div>
-            {captchaEnabled && <Captcha
+            <Captcha
                 ref={captchaRef}
                 size="invisible"
-                sitekey={window.__RECAPTCHA_PUBLIC__!} // Non-null assertion because captchaEnabled ensures it's defined
-            />}
+                sitekey={window.__RECAPTCHA_PUBLIC__!} // Non-null assertion because server ensures it's defined
+            />
             <script>
                 /* PLEASE NEXT.JS DON'T REMOVE THIS COMMENT FROM HERE */
             </script>
