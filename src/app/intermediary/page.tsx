@@ -33,27 +33,22 @@ export default function IntermediaryPage() {
             console.log("Proceeding with verification, captcha token:", captchaToken ? "present" : "none");
             const r = fetch(`/${shortlinkData.shortUrl}/verify`, {
                 method: "POST",
-                redirect: "manual",
+                redirect: "error",
                 headers: {
                     "Content-Type": "application/json",
                     "X-Captcha": captchaToken || "",
                 },
                 body: JSON.stringify({
                     shortlink: shortlinkData,
-                    captcha: captchaToken,
                 }),
             });
 
-            r.then(async (res) => {
+            r.catch(async (res) => {
                 if (res.ok) {
-                    if(res.headers.get("Location")) {
-                        window.location.href = res.headers.get("Location") || "/";
-                    } else {
-                        console.error("No redirection URL provided in response.");
-                        window.location.href = shortlinkData.destination;
-                    }
+                    window.location.href = shortlinkData.destination;
                 } else {
                     console.error("Failed to verify impression:", res.statusText);
+                    window.location.href = shortlinkData.destination; // Fallback to destination on error
                 }
             });
         }
@@ -91,13 +86,13 @@ export default function IntermediaryPage() {
 
         verifyImpression();
 
-        // setTimeout(() => {
-        //     // Fallback to direct redirection after 8 seconds
-        //     const shortlinkData = window.__SHORTLINK_DATA__;
-        //     if (shortlinkData) {
-        //         window.location.href = shortlinkData.destination;
-        //     }
-        // }, 8000);
+        setTimeout(() => {
+            // Fallback to direct redirection after 8 seconds
+            const shortlinkData = window.__SHORTLINK_DATA__;
+            if (shortlinkData) {
+                window.location.href = shortlinkData.destination;
+            }
+        }, 8000);
 
         return () => clearInterval(interval);
     }, []);
