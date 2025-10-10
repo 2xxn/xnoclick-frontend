@@ -125,7 +125,7 @@ export const LandingPage = () => {
         <div className="container mx-auto flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 space-y-8">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight animate-fadeIn">
-              Earn <span className="text-primary">XNO</span> Through<br/>
+              Earn <span className="text-primary">$XNO</span> Through<br/>
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Short Links
               </span>
@@ -193,7 +193,7 @@ export const LandingPage = () => {
           {[
             { title: 'Create', desc: 'Generate short links through your dashboard' },
             { title: 'Share', desc: 'Distribute your links across platforms' },
-            { title: 'Earn', desc: 'Accumulate XNO from verified visits' }
+            { title: 'Earn', desc: 'Accumulate $XNO from verified visits' }
           ].map((step, index) => (
             <div key={index} className="card bg-base-200 border border-base-300 p-6 hover:shadow-lg transition-all">
               <div className="text-4xl font-bold text-primary mb-4">0{index + 1}</div>
