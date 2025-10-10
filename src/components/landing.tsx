@@ -6,6 +6,8 @@ import { NanoWS } from "../lib/nano";
 import { calculatePercentage, resetRememberMe } from "../lib/utils";
 import { GITHUB_URL, DISCORD_URL } from "../consts";
 import Login from "./login";
+import DonationModal from "./DonationModal";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const LandingPage = () => {
   const [stats, setStats] = React.useState<StatsResponse>({
@@ -18,6 +20,7 @@ export const LandingPage = () => {
     funds: 0
   });
 
+  const [donationModalOpen, setDonationModalOpen] = React.useState(false);
   const [loginModalOpen, setLoginModalOpen] = React.useState(false);
   const [loginData, setLoginData] = React.useState<LoginResponse>();
 
@@ -74,6 +77,7 @@ export const LandingPage = () => {
       console.log("Login response:", response);
     }).catch((error) => {
       console.error("Error during login:", error);
+      toast.error("An error occurred while initiating login. Please report this issue.");
     });
   }
 
@@ -81,6 +85,7 @@ export const LandingPage = () => {
     getStats().then((data) => {
       setStats(data.data as StatsResponse);
     }).catch((error) => {
+      toast.error("Failed to fetch platform statistics.");
       console.error("Error fetching stats:", error);
     });
 
@@ -97,11 +102,14 @@ export const LandingPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200">
       {/* Login Modal */}
       {(loginModalOpen) && <Login loginResponse={loginData as LoginResponse} onCancel={() => setLoginModalOpen(false)} />}
+
+      {/* Donation Modal */}
+      {donationModalOpen && <DonationModal address="asdjhas" onClose={() => setDonationModalOpen(false)} />}
            {/* Navbar */}
-           <nav className="navbar bg-base-100 shadow-lg fixed top-0 z-50 2xl:px-90">
+        <nav className="navbar bg-base-100 shadow-lg fixed top-0 z-50 2xl:px-90">
         <div className="flex flex-1">
           <a href="#top" className="btn btn-ghost text-xl">
-            <span className="text-primary">XNO</span>Click
+            <span><span className="text-primary">xno.</span>click</span>  
           </a>
         </div>
         <div className="flex flex-none hidden md:flex">
@@ -166,7 +174,7 @@ export const LandingPage = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Crypto-Powered URL Shortener</h3>
             <p className="text-base-content/80 leading-relaxed">
-              XNOClick revolutionizes link sharing by integrating Nano cryptocurrency. 
+              xno.click revolutionizes link sharing by integrating Nano cryptocurrency. 
               Create short links that generate passive income through community engagement 
               while promoting decentralized digital currency adoption.
             </p>
@@ -215,7 +223,7 @@ export const LandingPage = () => {
       <SectionWrapper id="donate" title="Support the Network" bg="base-100">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <p className="text-xl text-base-content/80">
-            Help sustain and grow the XNOClick ecosystem. Your donations directly fuel user earnings
+            Help sustain and grow the xno.click ecosystem. Your donations directly fuel user earnings
             and platform development.
           </p>
           <div className="bg-base-200 p-6 rounded-2xl border border-base-300">
@@ -225,7 +233,7 @@ export const LandingPage = () => {
             </div>
             <div className="mt-4 text-base-content/70">{(stats?.funds || 0).toFixed(3)}/{(stats?.fundingGoal || 20).toFixed(3)} XNO</div>
           </div>
-          <button className="btn btn-primary px-12">Contribute Now</button>
+          <button onClick={() => setDonationModalOpen(true)} className="btn btn-primary px-12">Contribute Now</button>
         </div>
       </SectionWrapper>
 
@@ -234,7 +242,7 @@ export const LandingPage = () => {
         <div className="container mx-auto px-4 2xl:px-20">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h4 className="footer-title">XNOClick</h4>
+              <h4 className="footer-title">xno.click</h4>
               <p className="text-neutral-content/80">
                 URL shortening powered by Nano cryptocurrency
               </p>
@@ -252,7 +260,7 @@ export const LandingPage = () => {
             </div>
           </div>
           <div className="border-t border-neutral-content/20 mt-8 pt-8 text-center md:text-left">
-            <p>© 2025 XNOClick. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} xno.click. All rights reserved.</p>
           </div>
         </div>
       </footer>

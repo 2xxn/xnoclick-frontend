@@ -114,8 +114,8 @@ export default function IntermediaryPage() {
                         {/* Header */}
                         <div className="text-center">
                             <div className="flex justify-center items-center gap-0 mb-4 animate-pulse">
-                                <span className="text-4xl font-bold text-primary">XNO</span>
-                                <span className="text-4xl font-bold">Click</span>
+                                <span className="text-4xl font-bold text-primary">xno.</span>
+                                <span className="text-4xl font-bold">click</span>
                             </div>
                             <div className="flex justify-center text-center mb-4">
                                 <h2 className="font-bold text-2xl text-gray-300">You are being redirected{dots}</h2>
@@ -125,7 +125,7 @@ export default function IntermediaryPage() {
                         {/* Footer */}
                         <div className="text-center mt-2 pt-3 border-t border-base-300">
                             <p className="text-xs text-base-content/50">
-                                Powered by XNOClick • Earn cryptocurrency creating short links.
+                                Powered by xno.click • Earn cryptocurrency creating short links.
                             </p>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import { ShortLink } from '../../types';
 import { DataProvider, linksAtom, settingsAtom, userDataAtom } from '../../components/DataProvider';
 import { useAtom } from 'jotai';
 import { resetRememberMe } from '@/src/lib/utils';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState(0);
@@ -43,21 +44,33 @@ export default function DashboardPage() {
 
   const saveSettingsClick = () => {
     console.log('Saving settings:', { autoClaim, autoClaimThreshold });
-    saveSettings({ autoClaim, autoClaimThreshold }).then((response) => {
+    const promise = saveSettings({ autoClaim, autoClaimThreshold }).then((response) => {
       setSettings({ autoClaim, autoClaimThreshold });
       console.log('Settings saved:', response);
     }).catch((error) => {
       console.error('Error saving settings:', error);
     });
+
+    toast.promise(promise, {
+      loading: 'Saving settings...',
+      success: 'Settings saved successfully!',
+      error: 'Failed to save settings.'
+    });
   }
 
   const handleRemoveLink = (id: string) => {
     console.log('Removing link with ID:', id);
-    removeLink(id).then(() => {
+    const promise = removeLink(id).then(() => {
       console.log('Link removed successfully');
       setLinks((links as ShortLink[]).filter(link => link.id !== id));
     }).catch((error) => {
       console.error('Error removing link:', error);
+    });
+
+    toast.promise(promise, {
+      loading: 'Removing link...',
+      success: 'Link removed successfully!',
+      error: 'Failed to remove link.'
     });
   };
 
@@ -67,23 +80,33 @@ export default function DashboardPage() {
 
   const cashoutClick = () => {
     console.log('Cashout clicked');
-    cashout().then((response) => {
+    const promise = cashout().then((response) => {
       console.log('Cashout successful:', response);
     }).catch((error) => {
       console.error('Error during cashout:', error);
+    });
+
+    toast.promise(promise, {
+      loading: 'Processing cashout...',
+      success: 'Cashout successful!',
+      error: 'Failed to process cashout.'
     });
   };
 
   const logoutClick = () => {
     console.log('Logging out...');
-    logout()
-      .then(() => {
-        console.log('Logged out successfully');
-        resetRememberMe('/');
-      })
-      .catch((error) => {
+    const promise = logout().then(() => {
+      console.log('Logged out successfully');
+      resetRememberMe('/');
+    }).catch((error) => {
         console.error('Logout failed:', error);
-      });
+    });
+
+    toast.promise(promise, {
+      loading: 'Logging out...',
+      success: 'Logged out successfully!',
+      error: 'Failed to log out.'
+    });
   };
 
   // Chart configuration
@@ -135,7 +158,7 @@ export default function DashboardPage() {
 
   const createLinkClick = () => {
     console.log('Creating link:', { destination, earnings, customUrl });
-    createLink({ destination, earn: earnings, shortLink: customUrl }).then((response: any) => {
+    createLink({ destination, earn: earnings, shortLink: customUrl || undefined }).then((response: any) => {
       console.log('Link created:', response);
       setDestination('');
       setCustomUrl('');
@@ -173,7 +196,7 @@ export default function DashboardPage() {
             </label>
           </div>
           <div className="flex-1 px-2">
-            <h2 className="text-xl font-bold"><span className="text-primary">XNO</span>Click</h2>
+            <h2 className="text-xl font-bold"><span><span className="text-primary">xno.</span>click</span></h2>
           </div>
         </div>
 
@@ -188,9 +211,9 @@ export default function DashboardPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {[
                   { title: 'Links', value: userData.links },
-                  { title: 'Claimable', value: userData.claimable },
+                  { title: 'Claimable', value: `Ӿ${userData.claimable}` },
                   { title: 'Impressions', value: userData.totalImpressions },
-                  { title: 'Total Earned', value: userData.totalEarned },
+                  { title: 'Total Earned', value: `Ӿ${userData.totalEarned}` },
                 ].map((stat) => (
                   <div key={stat.title} className="bg-gradient-to-br from-base-100 to-base-200 p-6 rounded-2xl shadow-lg border border-base-300">
                     <h3 className="text-sm font-medium text-base-content/70 mb-2">{stat.title}</h3>
@@ -298,7 +321,7 @@ export default function DashboardPage() {
                           <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
                             {/* Main Content */}
                             <div className="flex-1 min-w-0 space-y-3">
-                              <div className="flex flex-col sm:flex-row sm:items-baseline gap-3">
+                              <div data-tip="Click to copy" className="flex flex-col sm:flex-row sm:items-baseline gap-3 tooltip w-max">
                                 <button
                                   onClick={() => navigator.clipboard.writeText(`https://xno.click/${link.shortUrl}`)}
                                   className="text-left font-semibold text-lg truncate hover:text-primary transition-colors"
@@ -323,13 +346,13 @@ export default function DashboardPage() {
                                   <span className="text-xs font-medium text-neutral-500">Impressions</span>
                                   <p className="font-medium text-lg">{link.impressions || 0}</p>
                                 </div>
-                                <div className="space-y-1">
+                                <div className="space-y-1 tooltip tooltip-bottom" data-tip="Total earnings from this link">
                                   <span className="text-xs font-medium text-neutral-500">Total Earnings</span>
                                   <p className="font-medium text-lg">
                                   Ӿ{link.earned > 0 ? link.earned : "0.00"}
                                   </p>
                                 </div>
-                                <div className="space-y-1">
+                                <div className="space-y-1 tooltip tooltip-bottom" data-tip="Amount available to claim">
                                   <span className="text-xs font-medium text-neutral-500">Claimable</span>
                                   <p className="font-medium text-lg text-success">
                                   Ӿ{link.claimable > 0 ? link.claimable : "0.00"}
@@ -369,13 +392,13 @@ export default function DashboardPage() {
                 <div className="bg-base-100 rounded-2xl shadow-lg border border-base-300 p-6">
                   <h2 className="text-xl font-bold mb-4">Link Earnings</h2>
                   <p className="text-base-content/70 mb-6">
-                    View your earnings and claimable amounts for each link.
+                    View your total earnings and claimable amount. Total earnings include all funds earned from your shortened links, while claimable represents the amount available for withdrawal.
                   </p>
                   {/* Stat cards */}
                   <div className="grid grid-cols-1 grid-cols-2 gap-6 mb-8">
                     {[
-                      { title: 'Total Earnings', value: userData?.totalEarned || 0 },
                       { title: 'Claimable', value: userData?.claimable || 0 },
+                      { title: 'Total Earnings', value: userData?.totalEarned || 0 },
                     ].map((stat) => (
                       <div key={stat.title} className="bg-base-200 p-4 rounded-lg shadow-sm">
                         <h3 className="font-medium">{stat.title}</h3>
@@ -385,8 +408,8 @@ export default function DashboardPage() {
                   </div>
                   {/* Cashout button */}
                   <div className="mt-6">
-                    <button onClick={cashoutClick} className="btn btn-primary w-full">
-                      Cash Out Earnings
+                    <button onClick={cashoutClick} className="btn btn-primary w-full" disabled={(userData?.claimable || 0) < 0.01}>
+                      Cashout!
                     </button>
                   </div>
                 </div>
@@ -489,7 +512,7 @@ export default function DashboardPage() {
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <div className="w-64 bg-base-100 border-r border-base-300 flex flex-col h-full">
           <div className="p-4 border-b border-base-300 hidden lg:block">
-            <h2 className="text-xl font-bold"><span className="text-primary">XNO</span>Click</h2>
+            <h2 className="text-xl font-bold"><span><span className="text-primary">xno.</span>click</span></h2>
           </div>
           <nav className="flex-1 p-2 space-y-1 mt-4">
             <div className="lg:hidden"><br /><br /></div>
