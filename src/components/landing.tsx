@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect } from "react";
-import { checkLogin, getStats, login } from "../lib/api";
+import { checkLogin, getStats, login, me } from "../lib/api";
 import { LoginResponse, StatsResponse } from "../types";
 import { NanoWS } from "../lib/nano";
 import { calculatePercentage, resetRememberMe } from "../lib/utils";
@@ -20,6 +20,7 @@ export const LandingPage = () => {
     funds: 0
   });
 
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [donationModalOpen, setDonationModalOpen] = React.useState(false);
   const [loginModalOpen, setLoginModalOpen] = React.useState(false);
   const [loginData, setLoginData] = React.useState<LoginResponse>();
@@ -82,6 +83,8 @@ export const LandingPage = () => {
   }
 
   useEffect(() => {
+    me().then(_ => setLoggedIn(true));
+
     getStats().then((data) => {
       setStats(data.data as StatsResponse);
     }).catch((error) => {
@@ -122,8 +125,7 @@ export const LandingPage = () => {
         </div>
         <div className="flex flex-1 justify-end">
           <button className="btn btn-primary gap-2" onClick={showLoginModal}>
-            {/* <Person /> */}
-            Login
+            {loggedIn ? `Dashboard` : `Login`}
           </button>
         </div>
       </nav>
