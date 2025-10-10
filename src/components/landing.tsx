@@ -156,13 +156,9 @@ export const LandingPage = () => {
           <div className="md:w-1/2 relative">
             <div className="mockup-browser border border-base-300 bg-base-100 shadow-2xl">
               <div className="mockup-browser-toolbar">
-                <div className="input border border-base-300">https://xno.click/earn</div>
+                <div className="input border border-base-300">https://xno.click/dashboard</div>
               </div>
-              <div className="px-4 py-16 bg-base-200 text-center">
-                <div className="animate-pulse text-sm text-base-content/50">
-                  Visitor interaction preview
-                </div>
-              </div>
+                  <img src="/preview.png" className="m-0 p-0 rounded-lg border border-base-300 shadow-lg" />
             </div>
           </div>
         </div>
