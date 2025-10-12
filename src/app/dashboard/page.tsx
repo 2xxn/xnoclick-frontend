@@ -111,12 +111,12 @@ export default function DashboardPage() {
 
   // Chart configuration
   const chartData = {
-    labels: Array.from({length: 14}, (_, i) => `${i + 1}/07`),
+    labels: Array.from({length: 7}, (_, i) => `${new Date().getMonth() + 1}/${new Date().getDate() - (6 - i)}`),
     datasets: [{
       label: 'Impressions',
-      data: Array.from({length: 14}, () => Math.floor(Math.random() * 1000)),
-      borderColor: '#6366f1',
-      backgroundColor: 'rgba(99, 102, 241, 0.2)',
+      data: userData?.dailyImpressions || [0, 0, 0, 0, 0, 0, 0],
+      borderColor: '#209ce9',
+      backgroundColor: '#70aed433', 
       tension: 0.4,
       pointRadius: 4,
       pointHoverRadius: 6,
@@ -133,7 +133,7 @@ export default function DashboardPage() {
         backgroundColor: '#1e1e2f',
         titleColor: '#fff',
         bodyColor: '#e0e0e0',
-        borderColor: '#6366f1',
+        borderColor: '#209ce9',
         borderWidth: 1,
         padding: 12,
         intersect: false,
@@ -149,8 +149,20 @@ export default function DashboardPage() {
         ticks: { color: '#a1a1aa' }
       },
       y: {
+        beginAtZero: true,          // start from 0
+        min: 0,                     // no negative values
         grid: { color: 'rgba(255,255,255,0.1)' },
-        ticks: { color: '#a1a1aa' }
+        ticks: {
+          color: '#a1a1aa',
+          // Only show integer values
+          callback: function(value: any) {
+            if (Number.isInteger(value)) {
+              return value;
+            }
+            return ''; // hide non-integer tick labels
+          },
+          stepSize: 1               // increments by 1
+        }
       }
     },
     animation: { duration: 300 }
@@ -231,7 +243,7 @@ export default function DashboardPage() {
               {/* Chart Section */}
               <div className="bg-base-100 rounded-2xl shadow-lg border border-base-300 p-6">
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-lg font-semibold">Daily Impressions (14 Days)</h3>
+                  <h3 className="text-lg font-semibold">Daily Impressions (7 Days)</h3>
                 </div>
                 <div className="h-64 sm:h-80 lg:h-96">
                   <Chart type="line" data={chartData} options={chartOptions} />
@@ -306,7 +318,6 @@ export default function DashboardPage() {
                       <p className="text-neutral-500 mb-3">No active links found</p>
                       <button 
                         onClick={() => {
-                          // TODO: Highlight the create link section temporarily
                           setActiveTab(1);
                         }}
                         className="btn btn-primary btn-sm px-6 shadow-md"

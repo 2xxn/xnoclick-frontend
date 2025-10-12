@@ -31,6 +31,7 @@ export interface MeResponse {
   totalImpressions: number
   address: string
   admin: boolean
+  dailyImpressions: number[]
 }
 
 export interface ShortLink {
