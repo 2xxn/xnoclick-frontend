@@ -21,7 +21,7 @@ export default function DashboardPage() {
   const [autoClaim, setAutoClaim] = useState(false);
   const [autoClaimThreshold, setAutoClaimThreshold] = useState(0);
 
-  const [userData] = useAtom(userDataAtom);
+  const [userData, setUserData] = useAtom(userDataAtom);
   const [links, setLinks] = useAtom(linksAtom);
   const [settings, setSettings] = useAtom(settingsAtom);
 
@@ -84,6 +84,7 @@ export default function DashboardPage() {
     console.log('Cashout clicked');
     const promise = cashout().then((response) => {
       console.log('Cashout successful:', response);
+      setUserData({...userData, claimable: 0} as any); // reset claimable to 0
     }).catch((error) => {
       console.error('Error during cashout:', error);
     });
