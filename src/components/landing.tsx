@@ -260,13 +260,13 @@ export const LandingPage = () => {
       </SectionWrapper>
 
       {/* Enhanced Footer */}
-      <footer className="footer p-12 bg-neutral text-neutral-content mt-20">
+      <footer className="footer p-12 bg-base-200 text-neutral-content mt-20">
         <div className="container mx-auto px-4 2xl:px-20">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <h4 className="footer-title">xno.click</h4>
               <p className="text-neutral-content/80">
-                URL shortening powered by Nano cryptocurrency
+                Where URL shortening meets cryptocurrency. Earn $XNO by sharing shortened links.
               </p>
             </div>
             <div className="flex flex-col gap-0 lg:gap-4"> 

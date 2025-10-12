@@ -41,6 +41,10 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
                 if (settingsData.status === 'fulfilled') {
                     setSettings(settingsData.value.data as ChangeSettingsRequest);
                 }
+
+                if (meData.status === 'rejected') {
+                    location.href = '/';
+                }
             });
             // setCurrency(getCurrencyFromAddress(address));
         }

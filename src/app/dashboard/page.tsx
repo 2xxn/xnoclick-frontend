@@ -9,6 +9,8 @@ import { DataProvider, linksAtom, settingsAtom, userDataAtom } from '../../compo
 import { useAtom } from 'jotai';
 import { resetRememberMe } from '@/src/lib/utils';
 import toast, { Toaster } from 'react-hot-toast';
+import { SocialIcon } from 'react-social-icons'
+import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from '@/src/consts';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState(0);
@@ -546,6 +548,16 @@ export default function DashboardPage() {
               </button>
             ))}
           </nav>
+          {/* Social Links */}
+          <div className="px-4 mt-auto">
+            <div className="flex items-center justify-center space-x-4 mb-4">
+              {[{ href: TWITTER_URL, network: "x" },
+                { href: GITHUB_URL, network: "github" },
+                { href: DISCORD_URL, network: "discord" }].map((social, index) => (
+                  <SocialIcon target="_blank" className="opacity-70 hover:opacity-100 transition-opacity duration-200"  key={index} href={social.href} bgColor='var(--color-base-300)' fgColor='var(--color-base-content)' network={social.network} style={{ height: 33, width: 33 }} />
+                ))}
+            </div>
+          </div>
           <div className="p-4 border-t border-base-300">
             <button className="w-full btn btn-ghost hover:bg-error/10 hover:text-error justify-start" onClick={logoutClick}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
