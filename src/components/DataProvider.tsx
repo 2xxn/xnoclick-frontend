@@ -21,7 +21,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [, setSettings] = useAtom(settingsAtom);
 
     useEffect(() => {
-        if (typeof document !== 'undefined' && document.cookie) {
+        if (typeof document !== 'undefined') {
             Promise.allSettled([
                 me(),
                 getLinks(),
