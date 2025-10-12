@@ -421,7 +421,7 @@ export default function DashboardPage() {
                   </div>
                   {/* Cashout button */}
                   <div className="mt-6">
-                    <button onClick={cashoutClick} className="btn btn-primary w-full" disabled={(userData?.claimable || 0) < 0.01}>
+                    <button onClick={cashoutClick} className="btn btn-primary w-full" disabled={(userData?.claimable || 0) <= 0}>
                       Cashout!
                     </button>
                   </div>
