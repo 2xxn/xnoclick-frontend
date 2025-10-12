@@ -4,10 +4,13 @@ import { checkLogin, getStats, login, me } from "../lib/api";
 import { LoginResponse, StatsResponse } from "../types";
 import { NanoWS } from "../lib/nano";
 import { calculatePercentage, resetRememberMe } from "../lib/utils";
-import { GITHUB_URL, DISCORD_URL } from "../consts";
+import { GITHUB_URL, DISCORD_URL, TWITTER_URL } from "../consts";
 import Login from "./login";
 import DonationModal from "./DonationModal";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import { remark } from 'remark';
+import html from 'remark-html';
+import LegalModal from "./LegalModal";
 
 export const LandingPage = () => {
   const [stats, setStats] = React.useState<StatsResponse>({
@@ -20,6 +23,8 @@ export const LandingPage = () => {
     funds: 0
   });
 
+  const [legalModalContent, setLegalModalContent] = React.useState<{ title: string; markdown: string }>({ title: '', markdown: '' });
+  const [legalModalOpen, setLegalModalOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [donationModalOpen, setDonationModalOpen] = React.useState(false);
   const [loginModalOpen, setLoginModalOpen] = React.useState(false);
@@ -34,23 +39,39 @@ export const LandingPage = () => {
     });
   }
 
-  function waitForTransaction(address: string, loginKey: string) {
-      const ws = new NanoWS('wss://rainstorm.city/websocket');
-
-      ws.on('reconnect', () => {
-          // Delete current ws and create a new one
-          console.log('Reconnecting WebSocket...');
-          waitForTransaction(address, loginKey);
-          checkLoginStatus(loginKey);
+  function showLegalModal(title: string, markdownFile: string) {
+    const promise = fetch(markdownFile)
+      .then(response => response.text())
+      .then(text => remark().use(html).process(text))
+      .then(markdown => {
+        setLegalModalOpen(true);
+        setLegalModalContent({ title, markdown: markdown.toString() });
       });
 
-          ws.subscribe(address);
-
-          ws.on('confirmation', (data) => {
-              console.log('Transaction confirmed:', data);
-              checkLoginStatus(loginKey);
-          });
+    toast.promise(promise, {
+      loading: 'Loading...',
+      success: 'Loaded!',
+      error: 'Failed to load ' + title
+    });
   }
+
+  // function waitForTransaction(address: string, loginKey: string) {
+  //     const ws = new NanoWS('wss://rainstorm.city/websocket');
+
+  //     ws.on('reconnect', () => {
+  //         // Delete current ws and create a new one
+  //         console.log('Reconnecting WebSocket...');
+  //         waitForTransaction(address, loginKey);
+  //         checkLoginStatus(loginKey);
+  //     });
+
+  //     ws.subscribe(address);
+
+  //     ws.on('confirmation', (data) => {
+  //         console.log('Transaction confirmed:', data);
+  //         checkLoginStatus(loginKey);
+  //     });
+  // }
 
   function showLoginModal() {
     if(!window.sessionStorage.getItem('rememberMe')) {
@@ -61,19 +82,19 @@ export const LandingPage = () => {
       console.log("Login response:", response);
       if((response as { status?: number })?.status == 204) {
         resetRememberMe('/dashboard');
+      } else {
+        setLoginData(response);
+        setLoginModalOpen(true);
       }
-
-      setLoginData(response);
-      setLoginModalOpen(true);
 
       checkLogin(response.loginKey).then((response) => {
           if(response.success) {
             console.info("Login successful:", response);
             resetRememberMe('/dashboard');
           }
-      }).catch(() => {
-        waitForTransaction(response.address, response.loginKey);
-      });
+      })//.catch(() => {
+      //   waitForTransaction(response.address, response.loginKey);
+      // });
 
       console.log("Login response:", response);
     }).catch((error) => {
@@ -108,7 +129,10 @@ export const LandingPage = () => {
 
       {/* Donation Modal */}
       {donationModalOpen && <DonationModal address="asdjhas" onClose={() => setDonationModalOpen(false)} />}
-           {/* Navbar */}
+
+      {/* Legal Modal */}
+      {legalModalOpen && <LegalModal title={legalModalContent.title} markdown={legalModalContent.markdown} onClose={() => setLegalModalOpen(false)} />}
+        {/* Navbar */}
         <nav className="navbar bg-base-100 shadow-lg fixed top-0 z-50 2xl:px-90">
         <div className="flex flex-1">
           <a href="#top" className="btn btn-ghost text-xl">
@@ -174,7 +198,7 @@ export const LandingPage = () => {
             <p className="text-base-content/80 leading-relaxed">
               xno.click revolutionizes link sharing by integrating Nano cryptocurrency. 
               Create short links that generate passive income through community engagement 
-              while promoting decentralized digital currency adoption.
+              while promoting decentralized digital currency adoption. Withdraw earnings instantly without a minimum threshold.
             </p>
           </div>
           <div className="bg-base-100 p-6 rounded-2xl border border-base-300 shadow-sm">
@@ -218,14 +242,14 @@ export const LandingPage = () => {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper id="donate" title="Support the Network" bg="base-100">
+      <SectionWrapper id="donate" title="Support the Project" bg="base-100">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <p className="text-xl text-base-content/80">
-            Help sustain and grow the xno.click ecosystem. Your donations directly fuel user earnings
+            Help sustain and grow the xno.click project. Your donations directly fuel user earnings
             and platform development.
           </p>
           <div className="bg-base-200 p-6 rounded-2xl border border-base-300">
-            <h3 className="text-2xl font-bold mb-4">Current Funding Pool</h3>
+            <h3 className="text-2xl font-bold mb-4">Current Donation Pool</h3>
             <div className="radial-progress text-primary" style={{ '--value': calculatePercentage(stats?.funds || 0, stats?.fundingGoal || 20) } as React.CSSProperties}>
               {calculatePercentage(stats?.funds || 0, stats?.fundingGoal || 20)}%
             </div>
@@ -247,12 +271,12 @@ export const LandingPage = () => {
             </div>
             <div className="flex flex-col gap-0 lg:gap-4"> 
               <h4 className="footer-title">Legal</h4>
-              <a className="link link-hover">Terms of use</a>
-              <a className="link link-hover">Privacy policy</a>
-              <a className="link link-hover">Cookie policy</a>
+              <a className="link link-hover" onClick={() => showLegalModal('Terms of Use', '/terms.txt')}>Terms of use</a>
+              <a className="link link-hover" onClick={() => showLegalModal('Privacy Policy', '/privacy.txt')}>Privacy policy</a>
             </div>
             <div className="flex flex-col gap-0 lg:gap-4">
               <h4 className="footer-title">Community</h4>
+              <a target="_blank" href={TWITTER_URL} className="link link-hover">X (Twitter)</a>
               <a target="_blank" href={GITHUB_URL} className="link link-hover">GitHub</a>
               <a target="_blank" href={DISCORD_URL} className="link link-hover">Discord</a>
             </div>

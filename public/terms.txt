@@ -1,0 +1,114 @@
+**Effective Date:** October 12, 2025  
+**Owner:** xno.click (the "Platform"), operated by an independent developer ("I", "me", or "my").
+
+---
+
+## 1. Acceptance of Terms
+
+By using **xno.click**, you agree to these Terms of Use.  
+If you do not agree, please do not use the service.
+
+These terms may be updated occasionally — if that happens, a notice will be posted, and your continued use of the platform means you accept the changes.
+
+---
+
+## 2. Service Overview
+
+**xno.click** is a privacy-focused URL shortener that allows users to:
+
+- Generate shortened links tied to their Nano address  
+- Earn small rewards based on link impressions  
+- Customize basic user preferences  
+
+> All features are provided **"as-is"** with no guarantees or uptime commitments.
+
+---
+
+## 3. Eligibility
+
+The use of **xno.click** is open to everyone unless restricted by local laws.  
+If you’re not eligible, please refrain from using the service.
+
+---
+
+## 4. User Responsibilities
+
+By using the service, you agree **not** to:
+
+- Use xno.click for spam, phishing, scams, or malicious links  
+- Post or share illegal, misleading, or harmful content  
+- Abuse the reward system through bots, click farms, VPNs, or similar methods  
+- Attempt to reverse engineer or disrupt the platform  
+
+> Any abuse may result in link deletion, bans, or blocking of Nano addresses.
+
+---
+
+## 5. Reward System
+
+Rewards (if active) are distributed based on link impressions and tracked using limited IP/User-Agent data.
+
+- Rewards are **not guaranteed**, and may change or stop at any time  
+- Attempts to manipulate or game the system may lead to forfeiture of rewards  
+
+---
+
+## 6. Accounts & Authentication
+
+You may choose to create an account on **xno.click**, which is tied to your **Nano address**.
+
+Authentication is handled through the **Nano network**:
+
+1. You send a small transaction to the platform to verify wallet ownership.  
+2. The transaction is immediately refunded to you — proving control of the address.  
+3. A temporary authentication token is stored in your browser (local storage or cookies) to keep you signed in.  
+
+This token resets automatically upon logout.
+
+You are responsible for:
+- Keeping your device secure  
+- Ensuring your Nano wallet is not compromised  
+
+For details on how data is handled during authentication, see the [Privacy Policy](#).
+
+---
+
+## 7. Content Ownership
+
+You retain ownership of any content you link to. However, you are solely responsible for ensuring that your links:
+
+- Do not violate laws or third-party rights  
+- Do not host or redirect to harmful, illegal, or inappropriate content  
+
+**xno.click** reserves the right to remove links that violate these terms.
+
+---
+
+## 8. Liability Disclaimer
+
+**xno.click** is provided **"as-is"** and **"as-available"**.  
+I make no guarantees regarding:
+
+- Service uptime or availability  
+- Accuracy or safety of linked content  
+- Continuity of the reward system  
+
+I am not liable for any losses or damages resulting from your use of this platform.
+
+---
+
+## 9. Termination
+
+I reserve the right to block or remove any user, link, or Nano address that violates these Terms — with or without notice.  
+You may stop using the service at any time.
+
+---
+
+## 10. Governing Law
+
+This agreement is governed by applicable laws in my jurisdiction (and yours, where required).  
+Disputes should be resolved amicably — if necessary, handled in a competent court.
+
+---
+
+**Last Updated:** _October 12, 2025_

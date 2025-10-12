@@ -13,7 +13,7 @@ interface SignInModalProps {
 const SignInModal: React.FC<SignInModalProps> = ({ loginResponse, onCancel }) => {
   const [copied, setCopied] = useState(false);
   const qrValue = `nano:${loginResponse.address}?amount=1000000000000000000000000`;
-  const wsUrl = `wss://ws.nano.to/`;
+  const wsUrl = `wss://rainstorm.city/websocket`;
 
   useEffect(() => {
     const ws = new NanoWS(wsUrl);

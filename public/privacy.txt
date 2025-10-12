@@ -1,0 +1,117 @@
+# Privacy Policy
+
+## 1. Introduction
+
+Welcome! I’m the creator of **xno.click**, and I’m a strong believer in digital privacy.  
+This platform is designed to store as little data as necessary while maintaining functionality and security.  
+
+This **Privacy Policy** outlines what data is collected, how it’s used, and how it’s protected.  
+It applies to all aspects of the service — both for registered users and anyone interacting with shortened links.
+
+---
+
+## 2. Data Collected
+
+**xno.click** is built with minimal data collection in mind.  
+However, some information is required for the service to function properly and securely:
+
+- **Created Links:** Nano address, shortened URL, and destination URL  
+- **User Settings:** Nano address and personal preferences  
+- **Link Impressions (for earning links):** IP address and User-Agent string (browser/device info)
+
+> No unnecessary tracking is performed, and no personally identifiable data is collected beyond what's listed above.
+
+---
+
+## 3. Purpose of Data Collection
+
+Data collected on **xno.click** serves the following purposes:
+
+- **Service Functionality:** Linking Nano addresses to short URLs, remembering user settings, and delivering rewards  
+- **Abuse Prevention:** IP and User-Agent data help detect and prevent fraud, such as fake clicks or bot traffic  
+- **Security and Integrity:** Ensures fair usage of the platform and helps maintain system stability  
+
+Any data not strictly required for core functionality is collected solely for anti-abuse and security purposes.
+
+---
+
+## 4. How Data is Used
+
+All collected data is used solely to operate and improve the **xno.click** service. Specifically:
+
+- **Created Links data** ensures that links can be resolved correctly and tied to the correct Nano address for payouts or analytics.  
+- **User Settings** allow customization of the user experience.  
+- **IP Addresses and User-Agents** are primarily used for detecting abuse (e.g., repeated impressions from the same source, bots, or click farms) and ensuring fair reward distribution.  
+
+> None of this data is used for tracking users across the web, profiling, or advertising purposes.
+
+---
+
+## 5. Data Sharing
+
+I do **not** sell, rent, or otherwise share your personal data with third parties.  
+The only exceptions where data may be shared are:
+
+- **Legal Requirements:** If compelled by a court order or government authority.  
+- **Security Measures:** In cases of abuse, fraud, or attacks, relevant data may be shared with infrastructure providers (e.g., anti-DDoS services) to mitigate risks.
+
+---
+
+## 6. Data Retention
+
+Data is stored only as long as necessary:
+
+- **Link and impression data** may be retained for up to 30 days for fraud analysis before being anonymized or deleted.  
+- **User preferences** are stored until the user deletes their account or resets their settings.  
+
+You can contact me at any time to request deletion of your data.
+
+---
+
+## 7. Cookies and Tracking
+
+**xno.click** does not use third-party tracking cookies.  
+
+A **local storage UUID token** is used for authentication.  
+It resets every login/logout for security purposes.
+
+Cookies are used only for:
+- User authentication  
+- Human-unreadable checksums of previously visited links  
+
+> You’re free to block both local storage and cookie use — though doing so may break key functionality. (Not recommended.)
+
+---
+
+## 8. Data Security
+
+I take reasonable steps to protect your data. This includes:
+
+- Secure **HTTPS** connections for all data transfers  
+- **Hashing** or **encrypting** sensitive data where possible  
+- Regular **security reviews** of code and infrastructure  
+
+While no system is 100% secure, I’m committed to doing my best to protect both the platform and your information.
+
+---
+
+## 9. Your Rights
+
+You have the right to:
+
+- Request access to any personal data stored about you  
+- Ask for corrections or deletions  
+- Withdraw consent where applicable  
+
+You can contact me via the methods listed in the website footer for any such requests.
+
+---
+
+## 10. Changes to This Policy
+
+This policy may be updated from time to time, especially as the platform evolves or if laws change.  
+If changes are significant, I’ll do my best to announce them clearly.
+
+---
+
+**Last updated:** _October 12, 2025_

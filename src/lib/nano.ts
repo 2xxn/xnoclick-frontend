@@ -33,6 +33,13 @@ export class NanoWS extends EventEmitter {
         this.ws.onopen = () => {
             console.log('WebSocket connection opened');
             this.emit('open');
+
+            // Ping the server every 5 seconds to keep the connection alive
+            setInterval(() => {
+                if (this.ws.readyState === WebSocket.OPEN) {
+                    this.ws.send(JSON.stringify({ action: "ping" }));
+                }
+            }, 5000);
         };
 
         this.ws.onmessage = (event) => {
