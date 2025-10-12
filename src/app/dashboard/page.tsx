@@ -28,9 +28,6 @@ export default function DashboardPage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       switch(window.location.hash) {
-        case '#dashboard':
-          setActiveTab(0);
-          break;
         case '#links':
           setActiveTab(1);
           break;
@@ -39,6 +36,9 @@ export default function DashboardPage() {
           break;
         case '#settings':
           setActiveTab(3);
+          break;
+        default:
+          setActiveTab(0);
           break;
       }
     }
@@ -535,7 +535,7 @@ export default function DashboardPage() {
                 key={tab}
                 onClick={() => {
                   if (typeof window !== 'undefined') {
-                    window.location.hash = `#${tab.toLowerCase()}`;
+                    window.location.hash = tab === "Dashboard" ? `` : `#${tab.toLowerCase()}`;
                     setActiveTab(index);
                   }
                 }}
