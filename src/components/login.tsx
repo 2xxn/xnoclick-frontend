@@ -15,14 +15,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ loginResponse, onCancel }) =>
   const qrValue = `nano:${loginResponse.address}?amount=1000000000000000000000000`;
   const wsUrl = `wss://rainstorm.city/websocket`;
 
-  useEffect(() => {
-    const ws = new NanoWS(wsUrl);
-    ws.on('open', () => {
-      console.log('WebSocket connection opened');
-      ws.subscribe(loginResponse.address);
-    });
-
-    ws.on('confirmation', () => {
+    function checkForConfirmation() {
       checkLogin(loginResponse.loginKey).then((response) => {
         if (response.success) {
           console.log("Login confirmed:", response);
@@ -33,6 +26,20 @@ const SignInModal: React.FC<SignInModalProps> = ({ loginResponse, onCancel }) =>
           console.error("Login failed:", response);
         }
       });
+    }
+
+  useEffect(() => {
+    const ws = new NanoWS(wsUrl);
+
+    setInterval(checkForConfirmation, 5000); // Check every 5 seconds
+    
+    ws.on('open', () => {
+      console.log('WebSocket connection opened');
+      ws.subscribe(loginResponse.address);
+    });
+
+    ws.on('confirmation', () => {
+      checkForConfirmation();
     });
 
     return () => {
