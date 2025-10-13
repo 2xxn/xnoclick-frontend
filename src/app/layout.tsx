@@ -3,8 +3,9 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
-  title: 'xno.click - URL Shortener',
-  description: 'An URL shortener service with earnings tracking capabilities',
+  metadataBase: new URL('https://xno.click'),
+  title: 'xno.click - get paid from impressions on your links!',
+  description: 'An URL shortener that pays you in cryptocurrency for every impression on your links. Share your links and earn!',
 }
 
 export default function RootLayout({
