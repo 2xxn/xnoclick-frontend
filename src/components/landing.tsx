@@ -127,8 +127,8 @@ export const LandingPage = () => {
       {/* Login Modal */}
       {(loginModalOpen) && <Login loginResponse={loginData as LoginResponse} onCancel={() => setLoginModalOpen(false)} />}
 
-      {/* Donation Modal */}
-      {donationModalOpen && <DonationModal address="asdjhas" onClose={() => setDonationModalOpen(false)} />}
+      {/* Donation Modal, TODO: move address to config */}
+      {donationModalOpen && <DonationModal address="nano_3aj6t1hqm7t3fs6mg7wnfbxh8c4fzmpnc6xgxjakkf6orf8qrwgr9ef4yumd" onClose={() => setDonationModalOpen(false)} />}
 
       {/* Legal Modal */}
       {legalModalOpen && <LegalModal title={legalModalContent.title} markdown={legalModalContent.markdown} onClose={() => setLegalModalOpen(false)} />}
