@@ -38,9 +38,6 @@ export default function IntermediaryPage() {
                     "Content-Type": "application/json",
                     "X-Captcha": captchaToken || "",
                 },
-                body: JSON.stringify({
-                    shortlink: shortlinkData,
-                }),
             });
 
             r.catch(async (res) => {
