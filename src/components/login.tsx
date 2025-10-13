@@ -76,6 +76,10 @@ const SignInModal: React.FC<SignInModalProps> = ({ loginResponse, onCancel }) =>
           <div className="relative group">
             <div className="p-3 bg-white rounded-box border-2 border-primary/20">
               <QRCodeSVG
+                onClick={()=>{
+                  // Open new window with qrValue as url
+                  window.open(qrValue, '_blank');
+                }}
                 value={qrValue}
                 size={200}
                 level="H"
