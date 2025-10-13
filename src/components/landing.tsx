@@ -259,8 +259,8 @@ export const LandingPage = () => {
         </div>
       </SectionWrapper>
 
-      {/* Enhanced Footer */}
-      <footer className="footer p-12 bg-base-200 text-neutral-content mt-20">
+      {/* Footer */}
+      <footer className="footer p-12 bg-base-300 text-neutral-content mt-20">
         <div className="container mx-auto px-4 2xl:px-20">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
@@ -283,6 +283,7 @@ export const LandingPage = () => {
           </div>
           <div className="border-t border-neutral-content/20 mt-8 pt-8 text-center md:text-left">
             <p>© {new Date().getFullYear()} xno.click. All rights reserved.</p>
+            <p className="pt-4">Sponsored by <a target="_blank" href={"https://www.xnopay.com/"} className="link link-hover text-secondary">XNOPay</a></p>
           </div>
         </div>
       </footer>
