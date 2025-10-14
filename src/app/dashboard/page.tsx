@@ -179,7 +179,17 @@ export default function DashboardPage() {
       setCustomUrl('');
       setLinks([response.data as ShortLink, ...(links as ShortLink[])]);
     }).catch((error) => {
-      console.error('Error creating link:', error);
+      if(error.toString().includes('429')) {
+        toast.error('Rate limit exceeded. You can create up to 5 links per hour.');
+      }
+
+      if(error.toString().includes('409')) {
+        toast.error('Custom URL already in use. Please choose another one.');
+      }
+
+      if (error.toString().includes('422')) {
+        toast.error('Invalid input. Please check your data and try again.');
+      }
     });
   };
 
