@@ -92,7 +92,7 @@ export default function DashboardPage() {
     toast.promise(promise, {
       loading: 'Processing cashout...',
       success: 'Cashout successful!',
-      error: 'Failed to process cashout.'
+      error: 'Failed to process cashout. If you\'ve used it recently, please wait a bit before trying again. Cashouts are limited to 3 times per day.'
     });
   };
 
