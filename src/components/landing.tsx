@@ -283,7 +283,7 @@ export const LandingPage = () => {
           </div>
           <div className="border-t border-neutral-content/20 mt-8 pt-8 text-center md:text-left">
             <p>© {new Date().getFullYear()} xno.click. All rights reserved.</p>
-            <p className="pt-4">Sponsored by <a target="_blank" href={"https://www.xnopay.com/"} className="link link-hover text-secondary">XNOPay</a></p>
+            <p className="pt-4">Sponsored by <a target="_blank" href={"https://www.xnopay.com/"} className="link link-hover text-secondary">XNOPay</a> and <a target="_blank" href={"https://nanswap.com/nodes"} className="link link-hover text-secondary">Nanswap Nodes</a></p>
           </div>
         </div>
       </footer>
